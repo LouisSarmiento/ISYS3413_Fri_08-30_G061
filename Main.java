@@ -1,8 +1,15 @@
 package accommodation;
 
-import java.util.ArrayList;
+import accommodation.Accommodation;
+import accommodation.Price;
+import accommodation.Location;
+import accommodation.BedType;
+import accommodation.Amenities;
+import accommodation.OptionalExtras;
+import accommodation.SearchFilter;
 import java.util.List;
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Main {
     public static void main(String[] args) {

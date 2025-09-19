@@ -22,7 +22,7 @@ public class Accommodation {
 
     // Getter and Setter methods
     public String getDetails() {
-        return "Accommodation ID: " + accommodationID + ", Title: " + title + ", Location: " + location +
+        return "Accommodation ID: " + accommodationID + ", Title: " + title + ", Location: " + location + 
                ", Capacity: " + capacity + ", Price: " + price;
     }
 
@@ -31,7 +31,16 @@ public class Accommodation {
     public void setBedDetails(BedType bedDetails) { this.bedDetails = bedDetails; }
     public void setAmenities(Amenities amenities) { this.amenities = amenities; }
     public void setOptionalExtras(OptionalExtras optionalExtras) { this.optionalExtras = optionalExtras; }
-    public String getPriceDetails() { return priceDetails.getPrice(); }
-    public String getLocationDetails() { return locationDetails.getLocationDetails(); }
-    public Amenities getAmenities() { return amenities; }
+
+    public String getPriceDetails() {
+        return priceDetails.getPrice();
+    }
+
+    public String getLocationDetails() {
+        return locationDetails.getLocationDetails();
+    }
+
+    public Amenities getAmenities() {
+        return amenities;
+    }
 }
