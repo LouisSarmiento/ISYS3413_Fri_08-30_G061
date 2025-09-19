@@ -14,4 +14,16 @@ public class Price {
     public String getPrice() {
         return "Price per night: " + pricePerNight + ", Price per week: " + pricePerWeek + ", Seasonal price: " + seasonalPrice;
     }
+
+    public float getPricePerNight() {
+        return pricePerNight;
+    }
+
+    public float getPricePerWeek() {
+        return pricePerWeek;
+    }
+
+    public float getSeasonalPrice() {
+        return seasonalPrice;
+    }
 }

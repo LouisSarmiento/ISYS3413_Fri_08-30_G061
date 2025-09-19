@@ -34,9 +34,36 @@ public class Accommodation {
     public void setOptionalExtras(OptionalExtras optionalExtras) { this.optionalExtras = optionalExtras; }
 
     // Getters for price and location
-    public String getPriceDetails() { return priceDetails.getPrice(); }
-    public String getLocationDetails() { return locationDetails.getLocationDetails(); }
+    public String getPriceDetails() {
+        if (priceDetails == null) {
+            return "Price per night: " + price;
+        }
+        return priceDetails.getPrice();
+    }
+
+    public String getLocationDetails() {
+        if (locationDetails == null) {
+            return "Location: " + location;
+        }
+        return locationDetails.getLocationDetails();
+    }
 
     // Ensure the 'Amenities' and 'OptionalExtras' are included
     public Amenities getAmenities() { return amenities; }
+
+    public Price getPriceInfo() { return priceDetails; }
+
+    public Location getLocationInfo() { return locationDetails; }
+
+    public BedType getBedDetails() { return bedDetails; }
+
+    public OptionalExtras getOptionalExtras() { return optionalExtras; }
+
+    public int getCapacity() { return capacity; }
+
+    public float getPricePerNight() { return price; }
+
+    public String getAccommodationID() { return accommodationID; }
+
+    public String getTitle() { return title; }
 }

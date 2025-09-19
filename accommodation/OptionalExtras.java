@@ -12,4 +12,12 @@ public class OptionalExtras {
     public String getExtras() {
         return "Extra: " + extraName + ", Extra price: " + extraPrice;
     }
+
+    public String getExtraName() {
+        return extraName;
+    }
+
+    public float getExtraPrice() {
+        return extraPrice;
+    }
 }

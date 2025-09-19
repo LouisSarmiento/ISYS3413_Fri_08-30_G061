@@ -12,4 +12,12 @@ public class BedType {
     public String getBedDetails() {
         return "Bed Type: " + bedType + ", Bed Capacity: " + bedCapacity;
     }
+
+    public String getType() {
+        return bedType;
+    }
+
+    public int getCapacity() {
+        return bedCapacity;
+    }
 }

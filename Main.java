@@ -1,11 +1,5 @@
 import accommodation.Accommodation;
-import accommodation.Amenities;
-import accommodation.BedType;
-import accommodation.Location;
-import accommodation.OptionalExtras;
-import accommodation.Price;
 import accommodation.SearchFilter;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -13,7 +7,7 @@ public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         // Creating some sample accommodations
-        List<Accommodation> accommodations = createSampleAccommodations();
+        List<Accommodation> accommodations = SampleAccommodationData.createSampleAccommodations();
 
         System.out.println("Welcome to the Accommodation Finder!");
         
@@ -48,6 +42,7 @@ public class Main {
         System.out.println("1. Search by Location");
         System.out.println("2. Search by Price");
         System.out.println("3. Search by Amenities");
+        System.out.println("4. Filter by Categories");
         System.out.print("Choose a search criterion: ");
         int searchOption = scanner.nextInt();
         scanner.nextLine(); // Consume newline
@@ -74,9 +69,104 @@ public class Main {
                 List<Accommodation> amenityResults = SearchFilter.filterByAmenities(accommodations, wifi, pool);
                 displayAccommodations(amenityResults);
                 break;
+            case 4:
+                filterByCategories(scanner, accommodations);
+                break;
             default:
                 System.out.println("Invalid option. Returning to main menu.");
         }
+    }
+
+    private static void filterByCategories(Scanner scanner, List<Accommodation> accommodations) {
+        List<Accommodation> filteredResults = accommodations;
+        boolean selecting = true;
+
+        while (selecting) {
+            System.out.println("\nFilter Categories:");
+            System.out.println("1. Minimum Capacity");
+            System.out.println("2. Price Range");
+            System.out.println("3. Bed Type");
+            System.out.println("4. Optional Extra");
+            System.out.println("5. Location (City/Region/Country)");
+            System.out.println("6. Amenities (WiFi/Pool)");
+            System.out.println("7. View Results");
+            System.out.println("8. Reset Filters");
+            System.out.println("9. Return to Search Menu");
+            System.out.print("Choose a filter option: ");
+
+            int filterChoice = scanner.nextInt();
+            scanner.nextLine(); // Consume newline
+
+            switch (filterChoice) {
+                case 1:
+                    System.out.print("Enter minimum capacity required: ");
+                    int minCapacity = scanner.nextInt();
+                    scanner.nextLine();
+                    filteredResults = SearchFilter.filterByCapacity(filteredResults, minCapacity);
+                    notifyFilterOutcome(filteredResults);
+                    break;
+                case 2:
+                    System.out.print("Enter minimum price per night: ");
+                    float minPrice = scanner.nextFloat();
+                    System.out.print("Enter maximum price per night: ");
+                    float maxPrice = scanner.nextFloat();
+                    scanner.nextLine();
+                    if (minPrice > maxPrice) {
+                        System.out.println("Minimum price cannot be greater than maximum price.");
+                    } else {
+                        filteredResults = SearchFilter.filterByPriceRange(filteredResults, minPrice, maxPrice);
+                        notifyFilterOutcome(filteredResults);
+                    }
+                    break;
+                case 3:
+                    System.out.print("Enter bed type (e.g. King, Queen, Twin): ");
+                    String bedType = scanner.nextLine();
+                    filteredResults = SearchFilter.filterByBedType(filteredResults, bedType);
+                    notifyFilterOutcome(filteredResults);
+                    break;
+                case 4:
+                    System.out.print("Enter optional extra keyword (e.g. Parking, Transfer): ");
+                    String extra = scanner.nextLine();
+                    filteredResults = SearchFilter.filterByOptionalExtra(filteredResults, extra);
+                    notifyFilterOutcome(filteredResults);
+                    break;
+                case 5:
+                    System.out.print("Enter location keyword: ");
+                    String locationKeyword = scanner.nextLine();
+                    filteredResults = SearchFilter.filterByLocation(filteredResults, locationKeyword);
+                    notifyFilterOutcome(filteredResults);
+                    break;
+                case 6:
+                    System.out.print("Require WiFi? (yes/no): ");
+                    boolean requireWifi = scanner.nextLine().equalsIgnoreCase("yes");
+                    System.out.print("Require pool? (yes/no): ");
+                    boolean requirePool = scanner.nextLine().equalsIgnoreCase("yes");
+                    filteredResults = SearchFilter.filterByAmenities(filteredResults, requireWifi, requirePool);
+                    notifyFilterOutcome(filteredResults);
+                    break;
+                case 7:
+                    displayAccommodations(filteredResults);
+                    return;
+                case 8:
+                    filteredResults = accommodations;
+                    System.out.println("Filters have been reset.");
+                    notifyFilterOutcome(filteredResults);
+                    break;
+                case 9:
+                    selecting = false;
+                    break;
+                default:
+                    System.out.println("Invalid option. Please try again.");
+            }
+
+            if (filteredResults.isEmpty()) {
+                System.out.println("No accommodations match the selected filters.");
+            }
+        }
+    }
+
+    private static void notifyFilterOutcome(List<Accommodation> filteredResults) {
+        System.out.println("Current matches: " + filteredResults.size());
     }
 
     private static void viewAllAccommodations(List<Accommodation> accommodations) {
@@ -92,42 +182,19 @@ public class Main {
                 System.out.println("\n" + accommodation.getDetails());
                 System.out.println(accommodation.getPriceDetails());
                 System.out.println(accommodation.getLocationDetails());
+                if (accommodation.getBedDetails() != null) {
+                    System.out.println(accommodation.getBedDetails().getBedDetails());
+                }
+                if (accommodation.getAmenities() != null) {
+                    System.out.println("Amenities - WiFi: " + (accommodation.getAmenities().isWiFi() ? "Yes" : "No")
+                            + ", Parking: " + (accommodation.getAmenities().isParking() ? "Yes" : "No")
+                            + ", Pool: " + (accommodation.getAmenities().isPool() ? "Yes" : "No")
+                            + ", Gym: " + (accommodation.getAmenities().isGym() ? "Yes" : "No"));
+                }
+                if (accommodation.getOptionalExtras() != null) {
+                    System.out.println(accommodation.getOptionalExtras().getExtras());
+                }
             }
         }
-    }
-
-    private static List<Accommodation> createSampleAccommodations() {
-        List<Accommodation> accommodations = new ArrayList<>();
-
-        Price price1 = new Price(120, 800, 1000);
-        Location location1 = new Location("Sydney", "New South Wales", "Australia");
-        BedType bed1 = new BedType("King", 2);
-        Amenities amenities1 = new Amenities(true, true, true, false);
-        OptionalExtras extras1 = new OptionalExtras("Late Check-out", 30);
-        Accommodation accommodation1 = new Accommodation("A101", "Luxury Stay", "Sydney", 2, 150);
-        accommodation1.setPriceDetails(price1);
-        accommodation1.setLocationDetails(location1);
-        accommodation1.setBedDetails(bed1);
-        accommodation1.setAmenities(amenities1);
-        accommodation1.setOptionalExtras(extras1);
-        
-        accommodations.add(accommodation1);
-        
-        // Adding more sample accommodations
-        Price price2 = new Price(100, 700, 900);
-        Location location2 = new Location("Melbourne", "Victoria", "Australia");
-        BedType bed2 = new BedType("Queen", 2);
-        Amenities amenities2 = new Amenities(true, false, true, true);
-        OptionalExtras extras2 = new OptionalExtras("Early Check-in", 20);
-        Accommodation accommodation2 = new Accommodation("A102", "Cozy Stay", "Melbourne", 2, 100);
-        accommodation2.setPriceDetails(price2);
-        accommodation2.setLocationDetails(location2);
-        accommodation2.setBedDetails(bed2);
-        accommodation2.setAmenities(amenities2);
-        accommodation2.setOptionalExtras(extras2);
-        
-        accommodations.add(accommodation2);
-
-        return accommodations;
     }
 }

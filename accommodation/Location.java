@@ -14,4 +14,16 @@ public class Location {
     public String getLocationDetails() {
         return "City: " + city + ", Region: " + region + ", Country: " + country;
     }
+
+    public String getCity() {
+        return city;
+    }
+
+    public String getRegion() {
+        return region;
+    }
+
+    public String getCountry() {
+        return country;
+    }
 }
