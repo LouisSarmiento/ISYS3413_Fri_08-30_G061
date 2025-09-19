@@ -18,4 +18,9 @@ public class Amenities {
     public boolean isParking() { return parking; }
     public boolean isPool() { return pool; }
     public boolean isGym() { return gym; }
+
+    public String getAmenities() {
+        return "WiFi: " + (wifi ? "Yes" : "No") + ", Parking: " + (parking ? "Yes" : "No")
+                + ", Pool: " + (pool ? "Yes" : "No") + ", Gym: " + (gym ? "Yes" : "No");
+    }
 }

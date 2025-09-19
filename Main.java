@@ -1,7 +1,10 @@
 // Contributed by Louis Sarmiento
 import accommodation.Accommodation;
+import accommodation.AccommodationSearchService;
 import accommodation.SearchFilter;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 public class Main {
@@ -89,13 +92,17 @@ public class Main {
             case 1:
                 System.out.print("Enter the city to search: ");
                 String city = scanner.nextLine();
-                List<Accommodation> locationResults = SearchFilter.filterByLocation(accommodations, city);
+                AccommodationSearchService searchService = new AccommodationSearchService(accommodations);
+                searchService.setSearchCriteria(city);
+                List<Accommodation> locationResults = searchService.searchAccommodation();
                 displayAccommodations(locationResults);
                 break;
             case 2:
                 System.out.print("Enter maximum price per night: ");
                 float maxPrice = scanner.nextFloat();
-                List<Accommodation> priceResults = SearchFilter.filterByPrice(accommodations, maxPrice);
+                Map<String, Object> priceCriteria = new HashMap<>();
+                priceCriteria.put("price", maxPrice);
+                List<Accommodation> priceResults = SearchFilter.applyFilter(accommodations, priceCriteria);
                 displayAccommodations(priceResults);
                 break;
             case 3:
@@ -104,7 +111,10 @@ public class Main {
                 boolean wifi = scanner.nextLine().equalsIgnoreCase("yes");
                 System.out.print("Does it need a pool? (yes/no): ");
                 boolean pool = scanner.nextLine().equalsIgnoreCase("yes");
-                List<Accommodation> amenityResults = SearchFilter.filterByAmenities(accommodations, wifi, pool);
+                Map<String, Object> amenityCriteria = new HashMap<>();
+                amenityCriteria.put("wifi", wifi);
+                amenityCriteria.put("pool", pool);
+                List<Accommodation> amenityResults = SearchFilter.applyFilter(accommodations, amenityCriteria);
                 displayAccommodations(amenityResults);
                 break;
             case 4:
@@ -116,7 +126,8 @@ public class Main {
     }
 
     private static void filterByCategories(Scanner scanner, List<Accommodation> accommodations) {
-        List<Accommodation> filteredResults = accommodations;
+        Map<String, Object> criteria = new HashMap<>();
+        List<Accommodation> filteredResults = SearchFilter.applyFilter(accommodations, criteria);
         boolean selecting = true;
 
         while (selecting) {
@@ -140,7 +151,8 @@ public class Main {
                     System.out.print("Enter minimum capacity required: ");
                     int minCapacity = scanner.nextInt();
                     scanner.nextLine();
-                    filteredResults = SearchFilter.filterByCapacity(filteredResults, minCapacity);
+                    criteria.put("capacity", minCapacity);
+                    filteredResults = SearchFilter.applyFilter(accommodations, criteria);
                     notifyFilterOutcome(filteredResults);
                     break;
                 case 2:
@@ -152,26 +164,30 @@ public class Main {
                     if (minPrice > maxPrice) {
                         System.out.println("Minimum price cannot be greater than maximum price.");
                     } else {
-                        filteredResults = SearchFilter.filterByPriceRange(filteredResults, minPrice, maxPrice);
+                        criteria.put("priceRange", new float[]{minPrice, maxPrice});
+                        filteredResults = SearchFilter.applyFilter(accommodations, criteria);
                         notifyFilterOutcome(filteredResults);
                     }
                     break;
                 case 3:
                     System.out.print("Enter bed type (e.g. King, Queen, Twin): ");
                     String bedType = scanner.nextLine();
-                    filteredResults = SearchFilter.filterByBedType(filteredResults, bedType);
+                    criteria.put("bedType", bedType);
+                    filteredResults = SearchFilter.applyFilter(accommodations, criteria);
                     notifyFilterOutcome(filteredResults);
                     break;
                 case 4:
                     System.out.print("Enter optional extra keyword (e.g. Parking, Transfer): ");
                     String extra = scanner.nextLine();
-                    filteredResults = SearchFilter.filterByOptionalExtra(filteredResults, extra);
+                    criteria.put("optionalExtra", extra);
+                    filteredResults = SearchFilter.applyFilter(accommodations, criteria);
                     notifyFilterOutcome(filteredResults);
                     break;
                 case 5:
                     System.out.print("Enter location keyword: ");
                     String locationKeyword = scanner.nextLine();
-                    filteredResults = SearchFilter.filterByLocation(filteredResults, locationKeyword);
+                    criteria.put("location", locationKeyword);
+                    filteredResults = SearchFilter.applyFilter(accommodations, criteria);
                     notifyFilterOutcome(filteredResults);
                     break;
                 case 6:
@@ -179,14 +195,17 @@ public class Main {
                     boolean requireWifi = scanner.nextLine().equalsIgnoreCase("yes");
                     System.out.print("Require pool? (yes/no): ");
                     boolean requirePool = scanner.nextLine().equalsIgnoreCase("yes");
-                    filteredResults = SearchFilter.filterByAmenities(filteredResults, requireWifi, requirePool);
+                    criteria.put("wifi", requireWifi);
+                    criteria.put("pool", requirePool);
+                    filteredResults = SearchFilter.applyFilter(accommodations, criteria);
                     notifyFilterOutcome(filteredResults);
                     break;
                 case 7:
                     displayAccommodations(filteredResults);
                     return;
                 case 8:
-                    filteredResults = accommodations;
+                    criteria.clear();
+                    filteredResults = SearchFilter.applyFilter(accommodations, criteria);
                     System.out.println("Filters have been reset.");
                     notifyFilterOutcome(filteredResults);
                     break;
