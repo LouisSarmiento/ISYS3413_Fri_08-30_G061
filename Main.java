@@ -1,3 +1,4 @@
+// Contributed by Louis Sarmiento
 import accommodation.Accommodation;
 import accommodation.SearchFilter;
 import java.util.List;
@@ -9,16 +10,54 @@ public class Main {
         // Creating some sample accommodations
         List<Accommodation> accommodations = SampleAccommodationData.createSampleAccommodations();
 
-        System.out.println("Welcome to the Accommodation Finder!");
-        
-        while (true) {
-            System.out.println("\nPlease choose an option:");
+        System.out.println("Welcome to the Travel Finder!");
+
+        boolean running = true;
+        while (running) {
+            System.out.println("\nWhat would you like to search for today?");
+            System.out.println("1. Accommodations");
+            System.out.println("2. Flights");
+            System.out.println("3. Vehicle Hire");
+            System.out.println("4. Exit");
+            System.out.print("Enter your choice: ");
+
+            int mainChoice = scanner.nextInt();
+            scanner.nextLine(); // Consume newline
+
+            switch (mainChoice) {
+                case 1:
+                    runAccommodationFinder(scanner, accommodations);
+                    break;
+                case 2:
+                    handleFlightSearch(scanner);
+                    break;
+                case 3:
+                    handleVehicleHireSearch(scanner);
+                    break;
+                case 4:
+                    System.out.println("Thank you for using the Travel Finder!");
+                    running = false;
+                    break;
+                default:
+                    System.out.println("Invalid option. Please try again.");
+            }
+        }
+
+        scanner.close();
+    }
+
+    private static void runAccommodationFinder(Scanner scanner, List<Accommodation> accommodations) {
+        boolean inAccommodationMenu = true;
+
+        while (inAccommodationMenu) {
+            System.out.println("\nAccommodation Menu:");
             System.out.println("1. Search for Accommodations");
             System.out.println("2. View All Accommodations");
-            System.out.println("3. Exit");
+            System.out.println("3. Return to Main Menu");
             System.out.print("Enter your choice: ");
+
             int choice = scanner.nextInt();
-            scanner.nextLine();  // Consume newline
+            scanner.nextLine(); // Consume newline
 
             switch (choice) {
                 case 1:
@@ -28,9 +67,8 @@ public class Main {
                     viewAllAccommodations(accommodations);
                     break;
                 case 3:
-                    System.out.println("Thank you for using the Accommodation Finder!");
-                    scanner.close();
-                    return;
+                    inAccommodationMenu = false;
+                    break;
                 default:
                     System.out.println("Invalid option. Please try again.");
             }
@@ -163,6 +201,14 @@ public class Main {
                 System.out.println("No accommodations match the selected filters.");
             }
         }
+    }
+
+    private static void handleFlightSearch(Scanner scanner) {
+        System.out.println("Flight search is coming soon. Please check back later.");
+    }
+
+    private static void handleVehicleHireSearch(Scanner scanner) {
+        System.out.println("Vehicle hire search is coming soon. Please check back later.");
     }
 
     private static void notifyFilterOutcome(List<Accommodation> filteredResults) {

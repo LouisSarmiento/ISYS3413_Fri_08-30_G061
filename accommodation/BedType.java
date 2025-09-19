@@ -1,3 +1,4 @@
+// Contributed by Louis Sarmiento
 package accommodation;
 
 public class BedType {

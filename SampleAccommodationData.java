@@ -1,3 +1,4 @@
+// Contributed by Louis Sarmiento
 import accommodation.Accommodation;
 import accommodation.Amenities;
 import accommodation.BedType;
