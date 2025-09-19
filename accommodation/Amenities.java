@@ -13,7 +13,8 @@ public class Amenities {
         this.gym = gym;
     }
 
-    public String getAmenities() {
-        return "WiFi: " + wifi + ", Parking: " + parking + ", Pool: " + pool + ", Gym: " + gym;
-    }
+    public boolean isWiFi() { return wifi; }
+    public boolean isParking() { return parking; }
+    public boolean isPool() { return pool; }
+    public boolean isGym() { return gym; }
 }

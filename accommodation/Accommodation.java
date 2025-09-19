@@ -1,7 +1,7 @@
 package accommodation;
 
 public class Accommodation {
-    private String accommodationID; // Primary Key
+    private String accommodationID;
     private String title;
     private String location;
     private int capacity;
@@ -11,7 +11,6 @@ public class Accommodation {
     private BedType bedDetails;
     private Amenities amenities;
     private OptionalExtras optionalExtras;
-    private Review review;
 
     public Accommodation(String accommodationID, String title, String location, int capacity, float price) {
         this.accommodationID = accommodationID;
@@ -21,33 +20,18 @@ public class Accommodation {
         this.price = price;
     }
 
+    // Getter and Setter methods
     public String getDetails() {
-        return "Accommodation ID: " + accommodationID + ", Title: " + title + ", Location: " + location + 
+        return "Accommodation ID: " + accommodationID + ", Title: " + title + ", Location: " + location +
                ", Capacity: " + capacity + ", Price: " + price;
     }
 
-    // Getters and Setters
-    public void setPriceDetails(Price priceDetails) {
-        this.priceDetails = priceDetails;
-    }
-
-    public void setLocationDetails(Location locationDetails) {
-        this.locationDetails = locationDetails;
-    }
-
-    public void setBedDetails(BedType bedDetails) {
-        this.bedDetails = bedDetails;
-    }
-
-    public void setAmenities(Amenities amenities) {
-        this.amenities = amenities;
-    }
-
-    public void setOptionalExtras(OptionalExtras optionalExtras) {
-        this.optionalExtras = optionalExtras;
-    }
-
-    public void setReview(Review review) {
-        this.review = review;
-    }
+    public void setPriceDetails(Price priceDetails) { this.priceDetails = priceDetails; }
+    public void setLocationDetails(Location locationDetails) { this.locationDetails = locationDetails; }
+    public void setBedDetails(BedType bedDetails) { this.bedDetails = bedDetails; }
+    public void setAmenities(Amenities amenities) { this.amenities = amenities; }
+    public void setOptionalExtras(OptionalExtras optionalExtras) { this.optionalExtras = optionalExtras; }
+    public String getPriceDetails() { return priceDetails.getPrice(); }
+    public String getLocationDetails() { return locationDetails.getLocationDetails(); }
+    public Amenities getAmenities() { return amenities; }
 }
