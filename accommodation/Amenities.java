@@ -1,9 +1,26 @@
 // Contributed by Louis Sarmiento
 package accommodation;
 
-/**
- * Skeleton placeholder for amenity details associated with an accommodation.
- */
 public class Amenities {
-    // TODO: Define amenity properties (e.g., WiFi, parking, pool).
+    private boolean wifi;
+    private boolean parking;
+    private boolean pool;
+    private boolean gym;
+
+    public Amenities(boolean wifi, boolean parking, boolean pool, boolean gym) {
+        this.wifi = wifi;
+        this.parking = parking;
+        this.pool = pool;
+        this.gym = gym;
+    }
+
+    public boolean isWiFi() { return wifi; }
+    public boolean isParking() { return parking; }
+    public boolean isPool() { return pool; }
+    public boolean isGym() { return gym; }
+
+    public String getAmenities() {
+        return "WiFi: " + (wifi ? "Yes" : "No") + ", Parking: " + (parking ? "Yes" : "No")
+                + ", Pool: " + (pool ? "Yes" : "No") + ", Gym: " + (gym ? "Yes" : "No");
+    }
 }
