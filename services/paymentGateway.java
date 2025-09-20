@@ -1,13 +1,11 @@
-public boolean authorise(float amount) {
-    if (amount >0 ) {
-        return true;
-    }
-    return false;
-}
+package services;
 
-public boolean capture(float amount) {
-    if (amount >0 ) {
-        return true;
+public class PaymentGateway {
+    public boolean authorise(float amount) {
+        return amount > 0;
     }
-    return false;
+
+    public boolean capture(float amount) {
+        return amount > 0;
+    }
 }

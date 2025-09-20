@@ -1,21 +1,24 @@
-public static void main(String[] args) {
-    List<Vehicle> stock = List.of(
-        new Car(1, "Toyota", "Corolla", 5, 59.90f, false),
-        new SUV(2, "Subaru", "Forester", 5, 79.00f, true)
-    );
+package services;
 
-    stock.forEach(v -> System.out.println(v.getDetails()));
+import model.Vehicle;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Predicate;
 
-    Vehicle chosen = stock.get(0); // pretend user chose index 0
+public class VehicleSearch {
+    private List<Vehicle> vehicles = new ArrayList<>();
 
-    Booking b = new Booking();
-    b.setVehicle(chosen);                // add a setter
-    b.setAmount(chosen.getPricePerDay()); // add getter
-    Payment p = new Payment(chosen.getPricePerDay());
-    b.setPayment(p);
+    public void addVehicle(Vehicle vehicle) {
+        vehicles.add(vehicle);
+    }
 
-    boolean ok = p.processPayment();
-    b.setStatus(ok ? BookingStatus.CONFIRMED : BookingStatus.PENDING);
-
-    System.out.println(ok ? "Booked: " + chosen.getDetails() : "Payment failed");
+    public List<Vehicle> filterVehicles(Predicate<Vehicle> predicate) {
+        List<Vehicle> result = new ArrayList<>();
+        for (Vehicle v : vehicles) {
+            if (predicate.test(v)) {
+                result.add(v);
+            }
+        }
+        return result;
+    }
 }

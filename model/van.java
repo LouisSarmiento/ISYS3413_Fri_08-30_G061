@@ -1,10 +1,19 @@
-public Van (int vehicleId, String make, String model, int seats, float price, int cargoVolume) {
-    super(vehicleId, make, model, seats, price);
-    this.cargoVolume = cargoVolume;
-}
+package model;
 
+public class Van extends Vehicle {
+    private int cargoVolume;
 
-public SUV (int vehicleId, String make, String model, int seats, float price, boolean hasAWD) {
-    super(vehicleId, make, model, seats, price);
-    this.hasAWD = hasAWD;
+    public Van(int vehicleId, String make, String model, int seats, float pricePerDay, int cargoVolume) {
+        super(vehicleId, make, model, seats, pricePerDay);
+        this.cargoVolume = cargoVolume;
+    }
+
+    public void foldRearBench() {
+        // TODO: implement
+    }
+
+    @Override
+    public String getDetails() {
+        return make + " " + model + " (Van, Cargo: " + cargoVolume + ")";
+    }
 }
