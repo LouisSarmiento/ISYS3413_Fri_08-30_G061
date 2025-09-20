@@ -1,24 +1,9 @@
 // Contributed by Louis Sarmiento
 package accommodation;
 
+/**
+ * Skeleton placeholder describing bed configuration information.
+ */
 public class BedType {
-    private String bedType;
-    private int bedCapacity;
-
-    public BedType(String bedType, int bedCapacity) {
-        this.bedType = bedType;
-        this.bedCapacity = bedCapacity;
-    }
-
-    public String getBedDetails() {
-        return "Bed Type: " + bedType + ", Bed Capacity: " + bedCapacity;
-    }
-
-    public String getType() {
-        return bedType;
-    }
-
-    public int getCapacity() {
-        return bedCapacity;
-    }
+    // TODO: Capture bed type details once requirements are confirmed.
 }
