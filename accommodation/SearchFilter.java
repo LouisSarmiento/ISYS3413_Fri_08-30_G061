@@ -5,12 +5,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-/**
- * Applies a limited set of filters to the accommodation collection.
- */
 public final class SearchFilter {
     private SearchFilter() {
-        // Utility class
+       
     }
 
     public static List<Accommodation> applyFilter(List<Accommodation> accommodations, Map<String, Object> criteria) {
