@@ -8,11 +8,11 @@ private String airplaneModel;
 private String destination;
 private Date departure;
 private String departFrom;
-private Date flightDuration;
+private int flightDuration;
 private int availableSeat;
 private boolean mealplan;
 
-    public Flights(String flightID, String airplaneModel, String destination, Date departure, String departFrom, Date flightDuration, int availableSeat, boolean mealplan) {
+    public Flights(String flightID, String airplaneModel, String destination, Date departure, String departFrom, int flightDuration, int availableSeat, boolean mealplan) {
         this.flightID = flightID;
         this.airplaneModel = airplaneModel;
         this.destination = destination;
@@ -37,7 +37,7 @@ private boolean mealplan;
     public String getDepartFrom() {
         return departFrom;
     }
-    public Date getFlightDuration() {
+    public int getFlightDuration() {
         return flightDuration;
     }
     public int getAvailableSeat() {
@@ -61,7 +61,7 @@ private boolean mealplan;
     public void setDepartFrom(String departFrom) {
         this.departFrom = departFrom;
     }
-    public void setFlightDuration(Date flightDuration) {
+    public void setFlightDuration(int flightDuration) {
         this.flightDuration = flightDuration;
     }
     public void setAvailableSeat(int availableSeat) {
