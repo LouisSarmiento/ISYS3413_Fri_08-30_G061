@@ -1,4 +1,5 @@
-// Contributed by Louis Sarmiento
+// Contributed by whole group
+
 import accommodation.Accommodation;
 import accommodation.AccommodationSearchService;
 import java.util.List;

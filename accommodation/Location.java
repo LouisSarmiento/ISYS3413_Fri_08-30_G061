@@ -3,9 +3,7 @@ package accommodation;
 
 import java.util.Locale;
 
-/**
- * Basic location metadata for an accommodation.
- */
+
 public class Location {
     private final String city;
     private final String region;

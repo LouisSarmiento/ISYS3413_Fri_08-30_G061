@@ -1,10 +1,6 @@
 // Contributed by Louis Sarmiento
 package accommodation;
 
-/**
- * Minimal representation of the amenities owned by an accommodation.
- * Additional fields/behaviour can be introduced as the project evolves.
- */
 public class Amenities {
     private final boolean wifi;
     private final boolean parking;

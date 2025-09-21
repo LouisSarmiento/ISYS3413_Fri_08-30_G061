@@ -3,9 +3,6 @@ package accommodation;
 
 import java.util.Optional;
 
-/**
- * Simplified accommodation entity used for the assessment skeleton.
- */
 public class Accommodation {
     private final String accommodationId;
     private final String title;
@@ -13,8 +10,8 @@ public class Accommodation {
     private final int capacity;
     private final Price price;
 
-    private Amenities amenities; // Optional – not required for the basic flow
-    private BedType bedType;     // Optional – populated later
+    private Amenities amenities; 
+    private BedType bedType;     
     private OptionalExtras optionalExtras;
 
     public Accommodation(String accommodationId, String title, Location location, int capacity, Price price) {
@@ -69,9 +66,7 @@ public class Accommodation {
         this.optionalExtras = optionalExtras;
     }
 
-    /**
-     * Light-weight summary used by the console stub.
-     */
+
     public String summary() {
         return title + " (" + location.label() + ") - Sleeps " + capacity + ", $" + price.getNightlyRate() + " per night";
     }

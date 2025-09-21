@@ -1,9 +1,7 @@
 // Contributed by Louis Sarmiento
 package accommodation;
 
-/**
- * Captures a simplified view of the bed configuration.
- */
+
 public class BedType {
     private final String type;
     private final int count;

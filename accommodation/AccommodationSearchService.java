@@ -6,10 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Provides a light-weight search experience over the accommodation list.
- * Only a subset of criteria is recognised at this stage.
- */
+
 public class AccommodationSearchService {
     private final List<Accommodation> accommodations;
     private final Map<String, Object> criteria = new HashMap<>();

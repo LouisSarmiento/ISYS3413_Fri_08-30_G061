@@ -1,9 +1,7 @@
 // Contributed by Louis Sarmiento
 package accommodation;
 
-/**
- * Placeholder for future review support. Stored fields are enough for testing relationships.
- */
+
 public class Review {
     private final String reviewerName;
     private final int rating;
