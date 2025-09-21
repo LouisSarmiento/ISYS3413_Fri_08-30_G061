@@ -25,7 +25,6 @@ public class Main {
                 System.out.println("1. View all accommodations");
                 System.out.println("2. Search by location");
                 System.out.println("3. Search by budget (max price)");
-                System.out.println("4. Advanced filters (coming soon)");
                 System.out.println("5. Exit");
                 System.out.print("Choose an option: ");
 
