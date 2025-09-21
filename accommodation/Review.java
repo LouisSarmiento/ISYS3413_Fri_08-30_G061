@@ -1,18 +1,29 @@
 // Contributed by Louis Sarmiento
 package accommodation;
 
+/**
+ * Placeholder for future review support. Stored fields are enough for testing relationships.
+ */
 public class Review {
-    private int reviewID;
-    private int rating;
-    private String comment;
+    private final String reviewerName;
+    private final int rating;
+    private final String comment;
 
-    public Review(int reviewID, int rating, String comment) {
-        this.reviewID = reviewID;
+    public Review(String reviewerName, int rating, String comment) {
+        this.reviewerName = reviewerName;
         this.rating = rating;
         this.comment = comment;
     }
 
-    public String getReview() {
-        return "Rating: " + rating + ", Comment: " + comment;
+    public String getReviewerName() {
+        return reviewerName;
+    }
+
+    public int getRating() {
+        return rating;
+    }
+
+    public String getComment() {
+        return comment;
     }
 }

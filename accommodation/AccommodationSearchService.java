@@ -1,27 +1,40 @@
 // Contributed by Louis Sarmiento
 package accommodation;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Provides a light-weight search experience over the accommodation list.
+ * Only a subset of criteria is recognised at this stage.
+ */
 public class AccommodationSearchService {
-    private String searchCriteria;
     private final List<Accommodation> accommodations;
+    private final Map<String, Object> criteria = new HashMap<>();
 
     public AccommodationSearchService(List<Accommodation> accommodations) {
-        this.accommodations = accommodations;
+        this.accommodations = new ArrayList<>(accommodations);
     }
 
-    public void setSearchCriteria(String searchCriteria) {
-        this.searchCriteria = searchCriteria;
+    public void clearCriteria() {
+        criteria.clear();
+    }
+
+    public void setLocationQuery(String query) {
+        criteria.put("location", query);
+    }
+
+    public void setMaxPrice(Float maxPrice) {
+        if (maxPrice == null) {
+            criteria.remove("maxPrice");
+        } else {
+            criteria.put("maxPrice", maxPrice);
+        }
     }
 
     public List<Accommodation> searchAccommodation() {
-        Map<String, Object> criteria = new HashMap<>();
-        if (searchCriteria != null && !searchCriteria.isEmpty()) {
-            criteria.put("location", searchCriteria);
-        }
         return SearchFilter.applyFilter(accommodations, criteria);
     }
 }

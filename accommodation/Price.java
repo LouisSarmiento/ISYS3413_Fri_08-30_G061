@@ -1,30 +1,19 @@
 // Contributed by Louis Sarmiento
 package accommodation;
 
+/**
+ * Represents basic pricing information for the accommodation skeleton.
+ */
 public class Price {
-    private float pricePerNight;
-    private float pricePerWeek;
-    private float seasonalPrice;
+    private final float nightlyRate;
 
-    public Price(float pricePerNight, float pricePerWeek, float seasonalPrice) {
-        this.pricePerNight = pricePerNight;
-        this.pricePerWeek = pricePerWeek;
-        this.seasonalPrice = seasonalPrice;
+    // TODO: Extend with weekly and seasonal rates if required by later iterations.
+
+    public Price(float nightlyRate) {
+        this.nightlyRate = nightlyRate;
     }
 
-    public String getPrice() {
-        return "Price per night: " + pricePerNight + ", Price per week: " + pricePerWeek + ", Seasonal price: " + seasonalPrice;
-    }
-
-    public float getPricePerNight() {
-        return pricePerNight;
-    }
-
-    public float getPricePerWeek() {
-        return pricePerWeek;
-    }
-
-    public float getSeasonalPrice() {
-        return seasonalPrice;
+    public float getNightlyRate() {
+        return nightlyRate;
     }
 }

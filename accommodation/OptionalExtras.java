@@ -1,24 +1,23 @@
 // Contributed by Louis Sarmiento
 package accommodation;
 
+/**
+ * Simple value object describing add-ons that may accompany an accommodation.
+ */
 public class OptionalExtras {
-    private String extraName;
-    private float extraPrice;
+    private final String name;
+    private final float price;
 
-    public OptionalExtras(String extraName, float extraPrice) {
-        this.extraName = extraName;
-        this.extraPrice = extraPrice;
+    public OptionalExtras(String name, float price) {
+        this.name = name;
+        this.price = price;
     }
 
-    public String getExtras() {
-        return "Extra: " + extraName + ", Extra price: " + extraPrice;
+    public String getName() {
+        return name;
     }
 
-    public String getExtraName() {
-        return extraName;
-    }
-
-    public float getExtraPrice() {
-        return extraPrice;
+    public float getPrice() {
+        return price;
     }
 }

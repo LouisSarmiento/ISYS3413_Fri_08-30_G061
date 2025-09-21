@@ -1,26 +1,30 @@
 // Contributed by Louis Sarmiento
 package accommodation;
 
+/**
+ * Minimal representation of the amenities owned by an accommodation.
+ * Additional fields/behaviour can be introduced as the project evolves.
+ */
 public class Amenities {
-    private boolean wifi;
-    private boolean parking;
-    private boolean pool;
-    private boolean gym;
+    private final boolean wifi;
+    private final boolean parking;
+    private final boolean pool;
 
-    public Amenities(boolean wifi, boolean parking, boolean pool, boolean gym) {
+    public Amenities(boolean wifi, boolean parking, boolean pool) {
         this.wifi = wifi;
         this.parking = parking;
         this.pool = pool;
-        this.gym = gym;
     }
 
-    public boolean isWiFi() { return wifi; }
-    public boolean isParking() { return parking; }
-    public boolean isPool() { return pool; }
-    public boolean isGym() { return gym; }
+    public boolean hasWifi() {
+        return wifi;
+    }
 
-    public String getAmenities() {
-        return "WiFi: " + (wifi ? "Yes" : "No") + ", Parking: " + (parking ? "Yes" : "No")
-                + ", Pool: " + (pool ? "Yes" : "No") + ", Gym: " + (gym ? "Yes" : "No");
+    public boolean hasParking() {
+        return parking;
+    }
+
+    public boolean hasPool() {
+        return pool;
     }
 }

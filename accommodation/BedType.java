@@ -1,24 +1,23 @@
 // Contributed by Louis Sarmiento
 package accommodation;
 
+/**
+ * Captures a simplified view of the bed configuration.
+ */
 public class BedType {
-    private String bedType;
-    private int bedCapacity;
+    private final String type;
+    private final int count;
 
-    public BedType(String bedType, int bedCapacity) {
-        this.bedType = bedType;
-        this.bedCapacity = bedCapacity;
-    }
-
-    public String getBedDetails() {
-        return "Bed Type: " + bedType + ", Bed Capacity: " + bedCapacity;
+    public BedType(String type, int count) {
+        this.type = type;
+        this.count = count;
     }
 
     public String getType() {
-        return bedType;
+        return type;
     }
 
-    public int getCapacity() {
-        return bedCapacity;
+    public int getCount() {
+        return count;
     }
 }

@@ -1,70 +1,78 @@
 // Contributed by Louis Sarmiento
 package accommodation;
 
-public class Accommodation {
-    private String accommodationID;
-    private String title;
-    private String location;
-    private int capacity;
-    private float price;
-    private Price priceDetails;
-    private Location locationDetails;
-    private BedType bedDetails;  
-    private Amenities amenities;
-    private OptionalExtras optionalExtras;  
+import java.util.Optional;
 
-    public Accommodation(String accommodationID, String title, String location, int capacity, float price) {
-        this.accommodationID = accommodationID;
+/**
+ * Simplified accommodation entity used for the assessment skeleton.
+ */
+public class Accommodation {
+    private final String accommodationId;
+    private final String title;
+    private final Location location;
+    private final int capacity;
+    private final Price price;
+
+    private Amenities amenities; // Optional – not required for the basic flow
+    private BedType bedType;     // Optional – populated later
+    private OptionalExtras optionalExtras;
+
+    public Accommodation(String accommodationId, String title, Location location, int capacity, Price price) {
+        this.accommodationId = accommodationId;
         this.title = title;
         this.location = location;
         this.capacity = capacity;
         this.price = price;
     }
 
-    // Getter methods for details
-    public String getDetails() {
-        return "Accommodation ID: " + accommodationID + ", Title: " + title + ", Location: " + location + 
-               ", Capacity: " + capacity + ", Price: " + price;
+    public String getAccommodationId() {
+        return accommodationId;
     }
 
-    // Setters for details
-    public void setPriceDetails(Price priceDetails) { this.priceDetails = priceDetails; }
-    public void setLocationDetails(Location locationDetails) { this.locationDetails = locationDetails; }
-    public void setBedDetails(BedType bedDetails) { this.bedDetails = bedDetails; }
-    public void setAmenities(Amenities amenities) { this.amenities = amenities; }
-    public void setOptionalExtras(OptionalExtras optionalExtras) { this.optionalExtras = optionalExtras; }
-
-    // Getters for price and location
-    public String getPriceDetails() {
-        if (priceDetails == null) {
-            return "Price per night: " + price;
-        }
-        return priceDetails.getPrice();
+    public String getTitle() {
+        return title;
     }
 
-    public String getLocationDetails() {
-        if (locationDetails == null) {
-            return "Location: " + location;
-        }
-        return locationDetails.getLocationDetails();
+    public Location getLocation() {
+        return location;
     }
 
-    // Ensure the 'Amenities' and 'OptionalExtras' are included
-    public Amenities getAmenities() { return amenities; }
+    public int getCapacity() {
+        return capacity;
+    }
 
-    public Price getPriceInfo() { return priceDetails; }
+    public Price getPrice() {
+        return price;
+    }
 
-    public Location getLocationInfo() { return locationDetails; }
+    public Optional<Amenities> getAmenities() {
+        return Optional.ofNullable(amenities);
+    }
 
-    public BedType getBedDetails() { return bedDetails; }
+    public void setAmenities(Amenities amenities) {
+        this.amenities = amenities;
+    }
 
-    public OptionalExtras getOptionalExtras() { return optionalExtras; }
+    public Optional<BedType> getBedType() {
+        return Optional.ofNullable(bedType);
+    }
 
-    public int getCapacity() { return capacity; }
+    public void setBedType(BedType bedType) {
+        this.bedType = bedType;
+    }
 
-    public float getPricePerNight() { return price; }
+    public Optional<OptionalExtras> getOptionalExtras() {
+        return Optional.ofNullable(optionalExtras);
+    }
 
-    public String getAccommodationID() { return accommodationID; }
+    public void setOptionalExtras(OptionalExtras optionalExtras) {
+        this.optionalExtras = optionalExtras;
+    }
 
-    public String getTitle() { return title; }
+    /**
+     * Light-weight summary used by the console stub.
+     */
+    public String summary() {
+        return title + " (" + location.label() + ") - Sleeps " + capacity + ", $" + price.getNightlyRate() + " per night";
+    }
 }
