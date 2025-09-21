@@ -1,7 +1,7 @@
 package flight;
 
 import java.util.Date;
-    public class flight {
+    public class Flights {
     String flightID;
     String airplaneModel;
     String destination;
