@@ -10,6 +10,5 @@ import java.util.Date;
     Date flightDuration;
     int availableSeat;
     boolean mealplan;
-
 }
 
