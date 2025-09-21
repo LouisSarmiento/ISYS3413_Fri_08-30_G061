@@ -1,11 +1,23 @@
 package model;
 
 public class ReservationHold {
-    private int holdId;
-    private boolean status;
+    private final int holdId;
+    private boolean active;
 
-    public ReservationHold(int holdId, boolean status) {
+    public ReservationHold(int holdId, boolean active) {
         this.holdId = holdId;
-        this.status = status;
+        this.active = active;
+    }
+
+    public int getHoldId() {
+        return holdId;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void release() {
+        active = false;
     }
 }

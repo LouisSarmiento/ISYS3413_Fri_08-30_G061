@@ -3,12 +3,12 @@ package model;
 import enums.BookingStatus;
 
 public class Booking {
-    private int bookingId;
-    private String date;
+    private final int bookingId;
+    private final String date;
     private BookingStatus status;
-    private User user;
-    private Vehicle vehicle;
-    private Payment payment;
+    private final User user;
+    private final Vehicle vehicle;
+    private final Payment payment;
 
     public Booking(int bookingId, String date, User user, Vehicle vehicle, Payment payment) {
         this.bookingId = bookingId;
@@ -21,5 +21,29 @@ public class Booking {
 
     public void setStatus(BookingStatus newStatus) {
         this.status = newStatus;
+    }
+
+    public BookingStatus getStatus() {
+        return status;
+    }
+
+    public Vehicle getVehicle() {
+        return vehicle;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public Payment getPayment() {
+        return payment;
+    }
+
+    public int getBookingId() {
+        return bookingId;
+    }
+
+    public String getDate() {
+        return date;
     }
 }

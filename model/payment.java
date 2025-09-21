@@ -4,10 +4,10 @@ import enums.PaymentStatus;
 import services.PaymentGateway;
 
 public class Payment {
-    private int paymentId;
-    private float amount;
-    private String status;
-    private PaymentGateway gateway;
+    private final int paymentId;
+    private final float amount;
+    private PaymentStatus status = PaymentStatus.PENDING;
+    private final PaymentGateway gateway;
 
     public Payment(int paymentId, float amount, PaymentGateway gateway) {
         this.paymentId = paymentId;
@@ -16,9 +16,19 @@ public class Payment {
     }
 
     public PaymentStatus processPayment() {
-        if (gateway.authorise(amount)) {
-            return PaymentStatus.APPROVED;
-        }
-        return PaymentStatus.DECLINED;
+        status = gateway.authorise(amount) ? PaymentStatus.APPROVED : PaymentStatus.DECLINED;
+        return status;
+    }
+
+    public PaymentStatus getStatus() {
+        return status;
+    }
+
+    public float getAmount() {
+        return amount;
+    }
+
+    public int getPaymentId() {
+        return paymentId;
     }
 }
