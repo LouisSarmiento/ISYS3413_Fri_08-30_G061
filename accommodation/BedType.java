@@ -1,7 +1,6 @@
 // Contributed by Louis Sarmiento
 package accommodation;
 
-
 public class BedType {
     private final String type;
     private final int count;
@@ -17,5 +16,9 @@ public class BedType {
 
     public int getCount() {
         return count;
+    }
+
+    public String describe() {
+        return count + " x " + type + " bed" + (count == 1 ? "" : "s");
     }
 }

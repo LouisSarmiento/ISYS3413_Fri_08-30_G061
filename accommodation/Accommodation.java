@@ -10,8 +10,8 @@ public class Accommodation {
     private final int capacity;
     private final Price price;
 
-    private Amenities amenities; 
-    private BedType bedType;     
+    private Amenities amenities;
+    private BedType bedType;
     private OptionalExtras optionalExtras;
 
     public Accommodation(String accommodationId, String title, Location location, int capacity, Price price) {
@@ -66,8 +66,18 @@ public class Accommodation {
         this.optionalExtras = optionalExtras;
     }
 
-
     public String summary() {
-        return title + " (" + location.label() + ") - Sleeps " + capacity + ", $" + price.getNightlyRate() + " per night";
+        return title + " (" + location.label() + ") - Sleeps " + capacity
+                + ", $" + price.getNightlyRate() + " per night";
+    }
+
+    public String detailedSummary() {
+        StringBuilder builder = new StringBuilder(summary());
+        price.getWeeklyRate().ifPresent(rate -> builder.append("\n    Weekly: $").append(rate));
+        price.getSeasonalRate().ifPresent(rate -> builder.append("\n    Seasonal: $").append(rate));
+        getBedType().ifPresent(bed -> builder.append("\n    Beds: ").append(bed.describe()));
+        getAmenities().ifPresent(am -> builder.append("\n    Amenities: ").append(am.describe()));
+        getOptionalExtras().ifPresent(extra -> builder.append("\n    Optional extra: ").append(extra.describe()));
+        return builder.toString();
     }
 }

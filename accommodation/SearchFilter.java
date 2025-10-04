@@ -2,35 +2,39 @@
 package accommodation;
 
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
+/**
+ * Applies the supplied search criteria to an accommodation collection.
+ */
 public final class SearchFilter {
     private SearchFilter() {
-       
+        // Utility class
     }
 
-    public static List<Accommodation> applyFilter(List<Accommodation> accommodations, Map<String, Object> criteria) {
+    public static List<Accommodation> applyFilter(List<Accommodation> accommodations, SearchCriteria criteria) {
         return accommodations.stream()
                 .filter(accommodation -> matchesLocation(accommodation, criteria))
                 .filter(accommodation -> matchesPrice(accommodation, criteria))
+                .filter(accommodation -> matchesCapacity(accommodation, criteria))
                 .collect(Collectors.toList());
     }
 
-    private static boolean matchesLocation(Accommodation accommodation, Map<String, Object> criteria) {
-        Object locationCriterion = criteria.get("location");
-        if (!(locationCriterion instanceof String)) {
+    private static boolean matchesLocation(Accommodation accommodation, SearchCriteria criteria) {
+        String query = criteria.getLocationQuery();
+        if (query == null || query.isEmpty()) {
             return true;
         }
-        return accommodation.getLocation().matches((String) locationCriterion);
+        return accommodation.getLocation().matches(query);
     }
 
-    private static boolean matchesPrice(Accommodation accommodation, Map<String, Object> criteria) {
-        Object maxPriceCriterion = criteria.get("maxPrice");
-        if (!(maxPriceCriterion instanceof Number)) {
-            return true;
-        }
-        float max = ((Number) maxPriceCriterion).floatValue();
-        return accommodation.getPrice().getNightlyRate() <= max;
+    private static boolean matchesPrice(Accommodation accommodation, SearchCriteria criteria) {
+        Float max = criteria.getMaxNightlyRate();
+        return max == null || accommodation.getPrice().getNightlyRate() <= max;
+    }
+
+    private static boolean matchesCapacity(Accommodation accommodation, SearchCriteria criteria) {
+        Integer min = criteria.getMinCapacity();
+        return min == null || accommodation.getCapacity() >= min;
     }
 }
