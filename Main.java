@@ -13,6 +13,7 @@ public class Main {
         try (Scanner scanner = new Scanner(System.in)) {
             boolean running = true;
             while (running) {
+                // simple console menu so we can see the sequence play out
                 System.out.println("\n--- Accommodation Comparison Demo ---");
                 System.out.println("Sample IDs: " + SAMPLE_IDS);
                 System.out.println("1) Compare first two IDs");
@@ -23,11 +24,15 @@ public class Main {
                 System.out.print("Choose an option: ");
                 String choice = scanner.nextLine().trim();
                 switch (choice) {
-                    case "1" -> controller.compareSelectedAccommodations("TRAVELLER-001", SAMPLE_IDS.subList(0, Math.min(2, SAMPLE_IDS.size())));
+                    case "1" -> controller.compareSelectedAccommodations(
+                            "TRAVELLER-001",
+                            SAMPLE_IDS.subList(0, Math.min(2, SAMPLE_IDS.size())));
                     case "2" -> {
                         System.out.print("Enter IDs separated by commas: ");
                         String input = scanner.nextLine().trim();
-                        List<String> ids = input.isEmpty() ? List.of() : List.of(input.split("\\s*,\\s*"));
+                        List<String> ids = input.isEmpty()
+                                ? List.of()
+                                : List.of(input.split("\\s*,\\s*"));
                         controller.compareSelectedAccommodations("TRAVELLER-001", ids);
                     }
                     case "3" -> {
@@ -38,6 +43,7 @@ public class Main {
                         }
                     }
                     case "4" -> {
+                        // dummy criteria just to trigger the refine path
                         SearchCriteria criteria = new SearchCriteria("TRAVELLER-001");
                         controller.refineSearch(criteria);
                     }

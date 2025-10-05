@@ -8,6 +8,7 @@ import java.util.Set;
 
 public class AccommodationSearchService {
     public ValidationResult validateSelection(List<String> selectedAccommodationIds) {
+        // check the list just like the diagram says (needs at least two)
         if (selectedAccommodationIds == null || selectedAccommodationIds.isEmpty()) {
             return ValidationResult.error("Select at least two accommodations");
         }
@@ -27,6 +28,7 @@ public class AccommodationSearchService {
     }
 
     public List<AccommodationDetails> fetchAccommodationDetails(List<String> accommodationIds) {
+        // stand-in for calling provider APIs
         if (accommodationIds == null) {
             return Collections.emptyList();
         }
@@ -40,18 +42,22 @@ public class AccommodationSearchService {
     }
 
     public TravellerPreferences loadTravellerPreferences(String travellerId) {
+        // right now we just return a placeholder object
         return TravellerPreferences.placeholder(travellerId);
     }
 
     public ComparisonView assembleComparisonView(List<AccommodationDetails> details, TravellerPreferences preferences) {
+        // in the diagram this is where the comparison view comes back to the controller
         return ComparisonView.placeholder(details);
     }
 
     public BookingContext prepareBooking(String travellerId, String accommodationId) {
+        // this would call another service later
         return new BookingContext(travellerId, accommodationId);
     }
 
     public List<AccommodationDetails> updateSearchCriteria(SearchCriteria criteria) {
+        // open for future filter logic
         return Collections.emptyList();
     }
 }

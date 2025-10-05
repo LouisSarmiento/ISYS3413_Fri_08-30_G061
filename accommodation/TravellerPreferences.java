@@ -4,6 +4,7 @@ public class TravellerPreferences {
     private final String travellerId;
 
     private TravellerPreferences(String travellerId) {
+        // this would hold more info later (budget, amenities, etc.)
         this.travellerId = travellerId;
     }
 

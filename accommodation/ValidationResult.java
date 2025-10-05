@@ -14,10 +14,12 @@ public final class ValidationResult {
     }
 
     public static ValidationResult error(String message) {
+        // used when the traveller picked less than two items
         return new ValidationResult(true, false, message, null);
     }
 
     public static ValidationResult singleSelection(String accommodationId) {
+        // tells the controller which ID was the only valid choice
         return new ValidationResult(false, true, "Only one selection provided", accommodationId);
     }
 

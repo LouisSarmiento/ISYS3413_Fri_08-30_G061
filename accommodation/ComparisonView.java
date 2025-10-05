@@ -14,6 +14,7 @@ public class ComparisonView {
     }
 
     public static ComparisonView placeholder(List<AccommodationDetails> details) {
+        // build a list of comparison rows so the controller can read it back
         List<ComparisonItem> placeholderItems = new ArrayList<>();
         for (AccommodationDetails detail : details) {
             placeholderItems.add(new ComparisonItem(detail));
