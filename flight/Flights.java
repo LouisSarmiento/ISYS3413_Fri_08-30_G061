@@ -4,6 +4,7 @@ import java.util.Date;
     public class Flights {
 
 private String flightID;
+private String airline;
 private String airplaneModel;
 private String destination;
 private Date departure;
@@ -12,8 +13,9 @@ private int flightDuration;
 private int availableSeat;
 private boolean mealplan;
 
-    public Flights(String flightID, String airplaneModel, String destination, Date departure, String departFrom, int flightDuration, int availableSeat, boolean mealplan) {
+    public Flights(String flightID,String airline, String airplaneModel, String destination, Date departure, String departFrom, int flightDuration, int availableSeat, boolean mealplan) {
         this.flightID = flightID;
+        this.airline = airline;
         this.airplaneModel = airplaneModel;
         this.destination = destination;
         this.departure = departure;
@@ -24,6 +26,9 @@ private boolean mealplan;
     }
     public String getFlightID() {
         return flightID;
+    }
+    public String getAirline() {
+        return airline;
     }
     public String getAirplaneModel() {
         return airplaneModel;
@@ -49,6 +54,9 @@ private boolean mealplan;
     public void setFlightID(String flightID) {
         this.flightID = flightID;
     }
+    public void setAirline(String airline) {
+        this.airline = airline;
+    }
     public void setAirplaneModel(String airplaneModel) {
         this.airplaneModel = airplaneModel;
     }
@@ -70,5 +78,6 @@ private boolean mealplan;
     public void setMealplan(boolean mealplan) {
         this.mealplan = mealplan;
     }
+
 }
     
