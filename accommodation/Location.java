@@ -1,8 +1,6 @@
-// Contributed by Louis Sarmiento
 package accommodation;
 
 import java.util.Locale;
-
 
 public class Location {
     private final String city;
@@ -27,14 +25,10 @@ public class Location {
         return country;
     }
 
-    /**
-     * Small helper used by the skeleton search logic.
-     */
     public boolean matches(String query) {
         if (query == null || query.isEmpty()) {
             return true;
         }
-
         String normalisedQuery = query.toLowerCase(Locale.ROOT);
         return toComparable(city).contains(normalisedQuery)
                 || toComparable(region).contains(normalisedQuery)

@@ -1,106 +1,57 @@
-// Contributed by Louis Sarmiento
 package accommodation;
 
-import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 public class AccommodationSearchService {
-    private final List<Accommodation> accommodations;
-    private final SearchCriteria criteria = new SearchCriteria();
-
-    public AccommodationSearchService(List<Accommodation> accommodations) {
-        this.accommodations = new ArrayList<>(accommodations);
-    }
-
-    public List<Accommodation> getAllAccommodations() {
-        return new ArrayList<>(accommodations);
-    }
-
-    public SearchCriteria getCriteriaSnapshot() {
-        return criteria.copy();
-    }
-
-    public void clearCriteria() {
-        criteria.clear();
-    }
-
-    public void setLocationQuery(String query) {
-        criteria.setLocationQuery(query);
-    }
-
-    public void setMaxPrice(Float maxPrice) {
-        criteria.setMaxNightlyRate(maxPrice);
-    }
-
-    public void setMinCapacity(Integer minCapacity) {
-        criteria.setMinCapacity(minCapacity);
-    }
-
-    public List<Accommodation> searchAccommodation() {
-        return SearchFilter.applyFilter(accommodations, criteria);
-    }
-
-    public ComparisonView compareAccommodations(List<String> accommodationIds, TravellerPreferences preferences) {
-        if (preferences == null) {
-            return ComparisonView.invalid("Traveller preferences are required for comparison.");
+    public ValidationResult validateSelection(List<String> selectedAccommodationIds) {
+        if (selectedAccommodationIds == null || selectedAccommodationIds.isEmpty()) {
+            return ValidationResult.error("Select at least two accommodations");
         }
-        if (accommodationIds == null || accommodationIds.isEmpty()) {
-            return ComparisonView.invalid("Select at least two accommodations to compare.");
-        }
-
-        List<String> normalisedIds = accommodationIds.stream()
-                .filter(id -> id != null && !id.isBlank())
-                .map(String::trim)
-                .collect(Collectors.toList());
-
-        if (normalisedIds.isEmpty()) {
-            return ComparisonView.invalid("No valid accommodation IDs provided.");
-        }
-
-        Set<String> uniqueIds = new HashSet<>(normalisedIds);
-        if (uniqueIds.size() == 1) {
-            String onlyId = uniqueIds.iterator().next();
-            return ComparisonView.singleOptionOnly(findById(onlyId).orElse(null));
-        }
-
-        List<ComparisonItem> items = new ArrayList<>();
-        List<String> missing = new ArrayList<>();
-
-        for (String id : uniqueIds) {
-            Optional<Accommodation> accommodation = findById(id);
-            if (accommodation.isPresent()) {
-                PreferenceMatch match = preferences.assess(accommodation.get());
-                items.add(new ComparisonItem(accommodation.get(), match));
-            } else {
-                missing.add(id);
+        Set<String> unique = new HashSet<>();
+        for (String id : selectedAccommodationIds) {
+            if (id != null && !id.isBlank()) {
+                unique.add(id.trim());
             }
         }
-
-        if (items.size() < 2) {
-            String message = missing.isEmpty()
-                    ? "Unable to locate enough accommodations for comparison."
-                    : "Missing accommodations: " + String.join(", ", missing);
-            return ComparisonView.invalid(message);
+        if (unique.size() < 1) {
+            return ValidationResult.error("No valid accommodation IDs provided");
         }
-
-        return ComparisonView.success(items, missing);
+        if (unique.size() == 1) {
+            return ValidationResult.singleSelection(unique.iterator().next());
+        }
+        return ValidationResult.success();
     }
 
-    public BookingContext prepareBooking(String accommodationId) {
-        Accommodation accommodation = findById(accommodationId)
-                .orElseThrow(() -> new IllegalArgumentException("Accommodation with ID " + accommodationId + " not found."));
-        String reference = "BOOK-" + accommodation.getAccommodationId() + "-" + Instant.now().toEpochMilli();
-        return new BookingContext(accommodation, reference);
+    public List<AccommodationDetails> fetchAccommodationDetails(List<String> accommodationIds) {
+        if (accommodationIds == null) {
+            return Collections.emptyList();
+        }
+        List<AccommodationDetails> details = new ArrayList<>();
+        for (String id : accommodationIds) {
+            if (id != null && !id.isBlank()) {
+                details.add(new AccommodationDetails(id.trim()));
+            }
+        }
+        return details;
     }
 
-    public Optional<Accommodation> findById(String accommodationId) {
-        return accommodations.stream()
-                .filter(acc -> acc.getAccommodationId().equalsIgnoreCase(accommodationId))
-                .findFirst();
+    public TravellerPreferences loadTravellerPreferences(String travellerId) {
+        return TravellerPreferences.placeholder(travellerId);
+    }
+
+    public ComparisonView assembleComparisonView(List<AccommodationDetails> details, TravellerPreferences preferences) {
+        return ComparisonView.placeholder(details);
+    }
+
+    public BookingContext prepareBooking(String travellerId, String accommodationId) {
+        return new BookingContext(travellerId, accommodationId);
+    }
+
+    public List<AccommodationDetails> updateSearchCriteria(SearchCriteria criteria) {
+        return Collections.emptyList();
     }
 }

@@ -1,9 +1,9 @@
 package accommodation;
 
-public class Accommodation {
+public class AccommodationDetails {
     private final String accommodationId;
 
-    public Accommodation(String accommodationId) {
+    public AccommodationDetails(String accommodationId) {
         this.accommodationId = accommodationId;
     }
 

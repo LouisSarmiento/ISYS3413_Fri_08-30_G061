@@ -1,28 +1,19 @@
-// Contributed by Louis Sarmiento
 package accommodation;
 
-/**
- * Represents the booking context created once a traveller chooses an accommodation.
- */
 public class BookingContext {
-    private final Accommodation accommodation;
-    private final String bookingReference;
+    private final String travellerId;
+    private final String accommodationId;
 
-    public BookingContext(Accommodation accommodation, String bookingReference) {
-        this.accommodation = accommodation;
-        this.bookingReference = bookingReference;
+    public BookingContext(String travellerId, String accommodationId) {
+        this.travellerId = travellerId;
+        this.accommodationId = accommodationId;
     }
 
-    public Accommodation getAccommodation() {
-        return accommodation;
+    public String getTravellerId() {
+        return travellerId;
     }
 
-    public String getBookingReference() {
-        return bookingReference;
-    }
-
-    public String describe() {
-        return "Booking reference " + bookingReference + " for " + accommodation.getTitle()
-                + " at $" + accommodation.getPrice().getNightlyRate() + " per night.";
+    public String getAccommodationId() {
+        return accommodationId;
     }
 }
